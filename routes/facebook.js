@@ -80,22 +80,23 @@ router.post('/facebookpost', function(request, response){
     
     console.log(request.body);
     
-    for(var key in request.body){
-        outerKey = JSON.parse(key);
-        break;
-    }
+    // for(var key in request.body){
+    //     outerKey = JSON.parse(key);
+    //     break;
+    // }
     
     console.log(outerKey);
     
-    if(typeof outerKey['fb_id'] == 'undefined' || typeof outerKey['latitude'] == 'undefined' 
-        || typeof outerKey['longitude'] == 'undefined' || typeof outerKey['status'] == 'undefined'
-        || typeof outerKey['token'] == 'undefined'){
+    // if(typeof outerKey['fb_id'] == 'undefined' || typeof outerKey['latitude'] == 'undefined' 
+    //     || typeof outerKey['longitude'] == 'undefined' || typeof outerKey['status'] == 'undefined'
+    //     || typeof outerKey['token'] == 'undefined'
+        if (2==3){
         response.send({['fb_id'] : fb_id, ['message'] : "Error : Bad Values!"});
     } else {
         fb_id = outerKey['fb_id'];
         latitude = Number(outerKey['latitude']);
         longitude = Number(outerKey['longitude']);
-        altitude = Number(outerKey['altitude']);
+        altitude = 0;
         status = Number(outerKey['status']);
         name = outerKey['name'];
         token = outerKey['token'];
