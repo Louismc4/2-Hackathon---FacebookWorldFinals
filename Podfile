@@ -9,5 +9,4 @@ target 'm3sh' do
   pod 'FBSDKCoreKit'
   pod 'FBSDKLoginKit'
   pod 'FBSDKShareKit'
-  
 end

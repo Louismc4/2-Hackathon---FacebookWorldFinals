@@ -21,6 +21,7 @@
 		344C04621F6CFA49008F4A9B /* InternetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344C04611F6CFA49008F4A9B /* InternetManager.swift */; };
 		344C04641F6D2124008F4A9B /* Peer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344C04631F6D2124008F4A9B /* Peer.swift */; };
 		344C04661F6D217E008F4A9B /* PeerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344C04651F6D217E008F4A9B /* PeerManager.swift */; };
+		3473B7431FBF34C100979553 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3429368B1FBF2F63005DB162 /* MapKit.framework */; };
 		D52C05CCC18C92B76A8CA8E5 /* Pods_m3sh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBC5820CEDEA6299D0DDAA1F /* Pods_m3sh.framework */; };
 /* End PBXBuildFile section */
 
@@ -28,6 +29,7 @@
 		3411FFB11FBE3CC9000E5223 /* VisualViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualViewController.swift; sourceTree = "<group>"; };
 		3414A1D51F7E071C00D1B6B9 /* Location.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Location.gpx; sourceTree = "<group>"; };
 		342936751FBE7E70005DB162 /* m3sh-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "m3sh-Bridging-Header.h"; sourceTree = "<group>"; };
+		3429368B1FBF2F63005DB162 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		3446027D1F6E4A42005A2408 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
 		3446027E1F6E4A42005A2408 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		3446027F1F6E4A42005A2408 /* splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash.png; sourceTree = "<group>"; };
@@ -53,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3473B7431FBF34C100979553 /* MapKit.framework in Frameworks */,
 				D52C05CCC18C92B76A8CA8E5 /* Pods_m3sh.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -113,6 +116,7 @@
 		5ED934AB7A7FF87927B76E9D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3429368B1FBF2F63005DB162 /* MapKit.framework */,
 				BBC5820CEDEA6299D0DDAA1F /* Pods_m3sh.framework */,
 			);
 			name = Frameworks;
@@ -157,7 +161,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0910;
 				ORGANIZATIONNAME = "Louis Moc";
 				TargetAttributes = {
 					344C04461F6CE452008F4A9B = {
@@ -165,6 +169,11 @@
 						DevelopmentTeam = 3GPSHZRNJ4;
 						LastSwiftMigration = 0910;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -298,7 +307,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -306,7 +317,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -349,7 +364,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -357,7 +374,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;

@@ -162,7 +162,7 @@ class LocationViewController : UIViewController, CLLocationManagerDelegate, FBSD
                         }
                     }
                 } else {
-                    var data = ["fb_id" : (jsonResponse as! NSDictionary)["fb_id"] as? String, "msg" : (jsonResponse as! NSDictionary)["msg"] as? String, "peers" : "", "type" : "status"]
+                    var data = ["fb_id" : (jsonResponse as! NSDictionary)["fb_id"] as? String, "msg" : (jsonResponse as! NSDictionary)["msg"] as? String, "peers" : ""]
                     if let idVal = UserDefaults.standard.object(forKey: "id") as? String {
                         if let dataVal = data["peers"] as? String {
                             data["peers"] = dataVal + idVal + ","
@@ -177,54 +177,54 @@ class LocationViewController : UIViewController, CLLocationManagerDelegate, FBSD
     
 //    @IBAction func send(_ sender: Any) {
 //        PeerManager.PeerManagerInstance.sendData(data : NSKeyedArchiver.archivedData(withRootObject: ["keee" : 233]))
-////        if(InternetManager.internetManager.isInternetAvailable()){
-////            // Define server side script URL
-////            let scriptUrl = "https://facebooklouismoc-louismc4.c9users.io/facebookget"
-////            // Create NSURL Ibject
-////            let myUrl = NSURL(string: scriptUrl);
-////
-////            // Creaste URL Request
-////            let request = NSMutableURLRequest(url:myUrl! as URL);
-////
-////            // Set request HTTP method to GET. It could be POST as well
-////            request.httpMethod = "GET"
-////            // Excute HTTP Request
-////            let task = URLSession.shared.dataTask(with: request as URLRequest) {
-////                data, response, error in
-////
-////                // Check for error
-////                if error != nil
-////                {
-////                    print("error=\(error)")
-////                    return
-////                }
-////                // Print out response string
-////                let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
-////                print("responseString = \(responseString)")
-////
-////
-////                // Convert server json response to NSDictionary
-////                do {
-////                    if let convertedJsonIntoDict = try JSONSerialization.jsonObject(with: data!, options: []) as? NSDictionary {
-////
-////                        // Print out dictionary
-////                        print(convertedJsonIntoDict)
-////
-////                        // Get value by key
-////                        //                    let firstNameValue = convertedJsonIntoDict["userName"] as? String
-////                        //                    print(firstNameValue!)
-////
-////                        PeerManager.PeerManagerInstance.sendData(data : NSKeyedArchiver.archivedData(withRootObject: ["keee" : 233]))
-////
-////                    }
-////                } catch let error as NSError {
-////                    print(error.localizedDescription)
-////                }
-////
-////            }
-////
-////            task.resume()
-////        }
+//        if(InternetManager.internetManager.isInternetAvailable()){
+//            // Define server side script URL
+//            let scriptUrl = "https://facebooklouismoc-louismc4.c9users.io/facebookget"
+//            // Create NSURL Ibject
+//            let myUrl = NSURL(string: scriptUrl);
+//
+//            // Creaste URL Request
+//            let request = NSMutableURLRequest(url:myUrl! as URL);
+//
+//            // Set request HTTP method to GET. It could be POST as well
+//            request.httpMethod = "GET"
+//            // Excute HTTP Request
+//            let task = URLSession.shared.dataTask(with: request as URLRequest) {
+//                data, response, error in
+//
+//                // Check for error
+//                if error != nil
+//                {
+//                    print("error=\(error)")
+//                    return
+//                }
+//                // Print out response string
+//                let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+//                print("responseString = \(responseString)")
+//
+//
+//                // Convert server json response to NSDictionary
+//                do {
+//                    if let convertedJsonIntoDict = try JSONSerialization.jsonObject(with: data!, options: []) as? NSDictionary {
+//
+//                        // Print out dictionary
+//                        print(convertedJsonIntoDict)
+//
+//                        // Get value by key
+//                        //                    let firstNameValue = convertedJsonIntoDict["userName"] as? String
+//                        //                    print(firstNameValue!)
+//
+//                        PeerManager.PeerManagerInstance.sendData(data : NSKeyedArchiver.archivedData(withRootObject: ["keee" : 233]))
+//
+//                    }
+//                } catch let error as NSError {
+//                    print(error.localizedDescription)
+//                }
+//
+//            }
+//
+//            task.resume()
+//        }
 //    }
     func show(msg : String){
         DispatchQueue.main.async() {
