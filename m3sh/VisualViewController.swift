@@ -23,7 +23,7 @@ class VisualViewController : UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         if(InternetManager.internetManager.isInternetAvailable()){
             
-            let urlString = URL(string: "https://facebooklouismoc-louismc4.c9users.io/facebookget")
+            let urlString = URL(string: "https://safetym3sh.herokuapp.com/facebookget")
             if let url = urlString {
                 let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
                     if error != nil {

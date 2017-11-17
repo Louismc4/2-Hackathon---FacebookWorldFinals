@@ -124,7 +124,7 @@ class LocationViewController : UIViewController, CLLocationManagerDelegate, FBSD
     }
     
     func safetyPost(params: [String:Any]) {
-        var request = URLRequest(url: URL(string: "https://facebooklouismoc-louismc4.c9users.io/facebookpost")!)
+        var request = URLRequest(url: URL(string: "https://safetym3sh.herokuapp.com/facebookpost")!)
         request.httpMethod = "POST"
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: params, options: .prettyPrinted)
