@@ -24,8 +24,6 @@ router.post('/facebookInit', function(request, response){
         break;
     }
     
-    console.log(outerKey);
-    
     if(typeof outerKey['fb_id'] == 'undefined'){
         response.end();
         return;
@@ -100,6 +98,8 @@ router.post('/facebookpost', function(request, response){
         name = outerKey['name'];
         token = outerKey['token'];
         
+        console.log(outerKey);
+        
         graph.setAccessToken(token);
         
         geocoder.reverseGeocode(latitude, longitude, function ( err, data ) {
@@ -114,11 +114,10 @@ router.post('/facebookpost', function(request, response){
                                     console.log(error);
                                     response.send({['fb_id'] : fb_id, ['message'] : 'Error : Facebook Post Error!'});
                                 } else {
+                                    
                                     picture = resp.picture.data.url;
                                     db.ref('/users/' + fb_id + '/').update({['picture'] : picture}).then(function(snapshot){
                                         //***
-                                        //facebookMessengerPost(fb_id, status, data.results[0].formatted_address, altitude, name, token, request, response);
-                                        facebookPagePost(fb_id, status, data.results[0].formatted_address, altitude, name, token, request, response)
                                         var statusString = '';
                                         if (status == 0){
                                             statusString = 'Needs Assistance';
@@ -134,6 +133,7 @@ router.post('/facebookpost', function(request, response){
                                                 }
                                                 if(status == 0){
                                                     graph.post("/feed/?privacy={'value':'SELF'}", wallPost, function(err, res) {
+                                                        console.log("XD3");
                                                         if(err){
                                                             console.log(err);
                                                             response.send({['fb_id'] : fb_id, ['message'] : "Error : Facebook Post Error!"});
@@ -141,6 +141,8 @@ router.post('/facebookpost', function(request, response){
                                                         } else {
                                                             // returns the post id
                                                             console.log(res); // { id: xxxxxx
+                                                            console.log("XDDD");
+                                                            facebookPagePost(token);
                                                             response.send({['fb_id'] : fb_id, ['message'] : "Hang on " + name + ". First responders are on their way."});
                                                         }
                                                     });
@@ -169,31 +171,75 @@ router.post('/facebookpost', function(request, response){
     }
 });
 
-var facebookPagePost = function(fb_id, status, address, altitude, name, token, request, response){
-    graph.setVersion('2.11');
-    var cfg = { "page_id" : "522354384791944", "access_token" : "EAACrIZCHE7c8BAPTPdStymmLSwtgHVpT7TspAZAk9Da0tuk7ZCAfSVt6Vp9vtaXcAqmkrnwyZCwP7jws3f6bUhw3AS0Ok1jkC0qeOfi5siCZCfOsyVRc4nMHZA4VNmnsJ7zWW9Wjomc56LUQujZBfN1jmlen00WcQ4h64LNCOxCyQZDZD"};
+router.get('/facebookget', function(request, response){
+    var responseArray = [];
     
-    graph.setAccessToken(cfg['access_token']);
-    
-    graph.get("me/accounts", function(error, resp) {
-        if(error)console.log(error);
-        else {
-            for(var page in resp['data']) {
-                if (page['id'] == cfg['page_id']) {
-                    console.log(page['access_token']);
-                }
+    db.ref('/users').once('value').then(function(snapshot){
+        var val = snapshot.val()
+        for (var key in val) {
+            if (val.hasOwnProperty(key)) {
+                responseArray.push({fb_id : val[key]['fb_id'], name : val[key]['name'], latitude : val[key]['latitude'], 
+                    longitude : val[key]['longitude'], altitude : val[key]['altitude']});
             }
         }
+        response.send(responseArray);
     });
+});
+
+var facebookPagePost = function(token){
+    graph.setVersion('2.11');
     
-    var wallPost = {
-      message: "Hello Nubby World"
-    };
-     
-    graph.post("/feed", wallPost, function(err, res) {
-      // returns the post id 
-      if(err)console.log(err);
-      else console.log(res); // { id: xxxxx} 
+    var user_token = token;
+    graph.setAccessToken(user_token);
+
+    var contact_names = {};
+    var last_name = "";
+    // get all close friends to add their tagID to tag string
+    graph.get("me?fields=last_name", function(error, resp) {
+        if(error)console.log(error);
+        else {
+            last_name = resp.last_name;
+            graph.get("me/family", function(error, resp) {
+                if(error)console.log(error);
+                else {
+                    for (var i = 0; i < resp.data.length; i++) {
+                        contact_names[resp.data[i].name] = resp.data[i].id;
+                    }
+                    console.log(contact_names);
+                    graph.get("me/taggable_friends", {limit: 300}, function(error, resp) {
+                        if(error)console.log(error);
+                        else {
+                            var tag_string = "";
+                            console.log(last_name);
+                            for (var g = 0; g < resp.data.length; g++) {
+                                //console.log(resp.data[g].name)
+                                if (contact_names[resp.data[g].name] != null) {
+                                    //console.log("FOUND ONE LOL")
+                                    if (tag_string != "") tag_string = tag_string + ", ";
+                                    tag_string = tag_string + resp.data[g].id;
+                                } else if (resp.data[g].name.split(" ")[1] == last_name) {
+                                    if (tag_string != "") tag_string = tag_string + ", ";
+                                    tag_string = tag_string + resp.data[g].id;
+                                }
+                            }
+                            console.log("Tag String", tag_string);
+                            var cfg = { "page_id" : "522354384791944", "access_token" : "EAACrIZCHE7c8BAPTPdStymmLSwtgHVpT7TspAZAk9Da0tuk7ZCAfSVt6Vp9vtaXcAqmkrnwyZCwP7jws3f6bUhw3AS0Ok1jkC0qeOfi5siCZCfOsyVRc4nMHZA4VNmnsJ7zWW9Wjomc56LUQujZBfN1jmlen00WcQ4h64LNCOxCyQZDZD"};
+                            graph.setAccessToken(cfg['access_token']);
+                            var wallPost = {
+                              message: "Hello World10",
+                              tags: tag_string
+                            };
+                             
+                            graph.post(cfg['page_id'] + "/feed", wallPost, function(err, res) {
+                              // returns the post id 
+                              if(err)console.log(err);
+                              else console.log(res);
+                            });
+                        }
+                    });
+                }
+            });
+        }
     });
 };
 
